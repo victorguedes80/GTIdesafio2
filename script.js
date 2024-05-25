@@ -24,11 +24,27 @@ buildPage ();
       const pokemonSprite = pokemon.sprites.front_default;
       img.src = pokemonSprite;
       img.style.display = 'block';
+
       const id = document.getElementById('id');
       id.innerText = '#' + pokemon.id;
+
       const pokemonName = pokemon.forms[0].name;
       const name = document.getElementById('pokemonName');
       name.innerText = pokemonName;
+      
+      const pokemonType1 = pokemon.types[0].type.name;
+      const type1 = document.getElementById('type1');
+      type1.innerText = pokemonType1;
+      const type2 = document.getElementById('type2');
+
+      if (pokemon.types.length > 1) {
+        const pokemonType2 = pokemon.types[1].type.name;
+        type2.innerText = pokemonType2;
+      }
+      else {
+        type2.innerText = '';
+      }
+
     })
     .catch (error => console.error(error))
   }
