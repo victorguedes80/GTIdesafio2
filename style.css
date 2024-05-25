@@ -1,3 +1,7 @@
+body {
+    background-color: white;
+}
+
 ul {
     list-style: none;
     display: flex;
@@ -7,6 +11,7 @@ ul {
 #card-container {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 
@@ -16,6 +21,10 @@ ul {
     background: none;
     border: none;
     cursor: pointer;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
 }
 
 svg {
@@ -28,6 +37,8 @@ svg {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-radius: 12px;
+    background-color: #fafafa;
 }
 
 
@@ -38,6 +49,12 @@ svg {
 #id {
     padding: 0;
     margin: 0;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+}
+
+
+#pokemonName {
+   font-family: 'Arial Rounded MT Bold', sans-serif;
 }
 
 #types {
@@ -46,5 +63,16 @@ svg {
 }
 
 #types p {
-    padding-right: 1rem;
+    padding: 0.3rem 1rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    border-radius: 7px;
+    width: 5rem;
+    height: 1rem;
+    text-align: center;
+    color: #fff;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    font-family: 'Trebuchet MS', sans-serif;
+    
 }
+

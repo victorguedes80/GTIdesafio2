@@ -31,18 +31,25 @@ buildPage ();
       const pokemonName = pokemon.forms[0].name;
       const name = document.getElementById('pokemonName');
       name.innerText = pokemonName;
-      
-      const pokemonType1 = pokemon.types[0].type.name;
+
+      const pokemonType1 = pokemon.types[0].type.name.toUpperCase();
       const type1 = document.getElementById('type1');
       type1.innerText = pokemonType1;
+      type1.style.backgroundColor = colorType (pokemonType1);
       const type2 = document.getElementById('type2');
 
       if (pokemon.types.length > 1) {
-        const pokemonType2 = pokemon.types[1].type.name;
+        const pokemonType2 = pokemon.types[1].type.name.toUpperCase();
         type2.innerText = pokemonType2;
+        type2.style.backgroundColor = colorType (pokemonType2);
+        type2.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.1)';
+
       }
+        
       else {
         type2.innerText = '';
+        type2.style.backgroundColor = 'transparent';
+        type2.style.boxShadow = 'none';
       }
 
     })
@@ -73,3 +80,49 @@ buildPage ();
     buildPage ();
   }
   
+
+
+
+  function colorType (type) {
+    switch (type) {
+      case 'GRASS':
+        return '#78C850';
+      case 'FIRE':
+        return '#F08030';
+      case 'NORMAL':
+        return '#A8A878';
+      case 'FIGHTING':
+        return '#C03028';
+      case 'FLYING':
+        return '#A890F0';
+      case 'POISON':
+        return '#A040A0';
+      case 'GROUND':
+        return '#E0C068';
+      case 'ROCK':
+          return '#B8A038';
+      case 'BUG':
+        return '#A8B820';
+      case 'GHOST':
+        return '#705898';
+      case 'STEEL':
+        return '#B8B8D0';
+      case 'WATER':
+        return '#6890F0';
+      case 'ELECTRIC':
+        return '#F8D030';
+      case 'PSYCHIC':
+        return '#F85888';
+      case 'ICE':
+        return '#98D8D8';
+      case 'DRAGON':
+        return '#7038F8';
+      case 'DARK':
+        return '#705848';
+      case 'FAIRY':
+        return '#EE99AC';
+      
+      default:
+        return '#FFFFFF';
+    }
+  }
