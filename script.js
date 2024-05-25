@@ -1,5 +1,5 @@
 /*fetch ('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151')*/
- 
+let pokeid = 1;
 buildTeamSlots ();
 buildPage ();
 
@@ -16,7 +16,8 @@ buildPage ();
 
 
   function buildPage () {
-    fetch ('https://pokeapi.co/api/v2/pokemon/1/')
+    
+    fetch (`https://pokeapi.co/api/v2/pokemon/${pokeid}/`)
     .then (response => response.json())
     .then (pokemon => {
       const img = document.getElementById('pokemonSprite');
@@ -32,5 +33,27 @@ buildPage ();
     .catch (error => console.error(error))
   }
 
+  
 
+  function prevPokemon () {
+    if (pokeid == 1) {
+      pokeid = 151;
+    }
+    else {
+      --pokeid;
+    }
+
+    buildPage ();
+  }
+
+
+  function nextPokemon () {
+    if (pokeid == 151) {
+      pokeid = 1;
+    }
+    else {
+      ++pokeid;
+    }
+    buildPage ();
+  }
   
