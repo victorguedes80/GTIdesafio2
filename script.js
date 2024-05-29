@@ -7,8 +7,12 @@ function buildTeamSlots () {
   const slots = document.querySelector('#team-slots');
   for (let i = 0; i<6; ++i) {
     const li = document.createElement('li');
+    li.id = 'pokemon' + (i+1);
+    li.dataset.empty = 'true';
+
     const img = document.createElement('img');
     img.src = 'https://cdn0.iconfinder.com/data/icons/pokemon-go-vol-2/135/_Pokeball-128.png';
+
     li.appendChild(img)
     slots.appendChild(li);
   }
@@ -233,6 +237,29 @@ async function searchByName () {
   } 
   catch (error) {
     console.error(error);
+  }
+
+
+}
+
+
+function addPokemon (button) {
+  const slots = document.querySelectorAll('#team-slots li');
+  let slot = null;
+
+  for (let i = 0; i < slots.length; ++i) {
+    if (slots[i].dataset.empty === 'true') {
+      slot = slots[i];
+      break;
+    }
+  }
+
+  if (slot) {
+    slot.dataset.empty = 'false';
+    const img = slot.querySelector('img');
+    const pokemonSprite = button.querySelector('#pokemonSprite');
+    console.log(pokemonSprite);
+    img.src = pokemonSprite.src;
   }
 
 
