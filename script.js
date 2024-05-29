@@ -159,7 +159,8 @@ function showAll (button) {
   button.disabled = true;
   document.getElementById('by-id').style.display = "none";
   document.getElementById('searchPoke').style.display = "none";
-  const section = document.getElementById('showAll')
+  const section = document.getElementById('showAll');
+  section.innerHTML = '';
   section.style.display = "block";
 
   fetch ('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151')
@@ -212,12 +213,8 @@ async function searchByName () {
     const pokemons = data.results;
 
     const searchedPokemons = pokemons.filter(pokemon => pokemon.name.includes(pokemonName));
-    const section = document.getElementById('searchPoke');
-    const inputField = document.getElementById('inputName');
-    const searchButton = section.querySelector('button');
-    section.innerHTML = '';
-    section.appendChild(inputField);
-    section.appendChild(searchButton);
+    const container = document.getElementById('searchedPokemons');
+    container.innerHTML = '';
 
     for (const pokemon of searchedPokemons) {
       const pokemonResponse = await fetch(pokemon.url)
@@ -230,7 +227,7 @@ async function searchByName () {
 
       const pokemonSprite = document.createElement('img');
       pokemonSprite.src = pokemonData.sprites.front_default;
-      section.appendChild(pokemonSprite);
+      container.appendChild(pokemonSprite);
 
     }
    
@@ -260,6 +257,18 @@ function addPokemon (button) {
     const pokemonSprite = button.querySelector('#pokemonSprite');
     console.log(pokemonSprite);
     img.src = pokemonSprite.src;
+
+    slot.style.borderRadius = '50%';
+    slot.style.overflow = 'hidden';
+    slot.style.borderStyle = 'solid';
+    slot.style.borderWidth = '2px';
+    slot.style.borderColor = 'black';
+    slot.style.width = '90px';
+    slot.style.height = '90px';
+
+    const color = colorType(button.querySelector('#type1').innerText);
+    slot.style.backgroundColor = color;
+    console.log(color);
   }
 
 
