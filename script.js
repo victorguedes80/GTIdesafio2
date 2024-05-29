@@ -13,7 +13,18 @@ function buildTeamSlots () {
     const img = document.createElement('img');
     img.src = 'https://cdn0.iconfinder.com/data/icons/pokemon-go-vol-2/135/_Pokeball-128.png';
 
-    li.appendChild(img)
+    const button = document.createElement('button');
+    button.className = 'removeButton';
+    button.innerHTML = `<?xml version="1.0" ?><svg id="Icons" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style>.cls-1{fill:url(#linear-gradient);}.cls-2{fill:#ff7391;}</style><linearGradient gradientUnits="userSpaceOnUse" id="linear-gradient" x1="12" x2="12" y1="0.787" y2="23.088"><stop offset="0" stop-color="#ff4867"/><stop offset="1" stop-color="#e50031"/></linearGradient></defs><circle class="cls-1" cx="12" cy="12" r="11"/><path class="cls-2" d="M13.414,12l3.293-3.293a1,1,0,1,0-1.414-1.414L12,10.586,8.707,7.293A1,1,0,1,0,7.293,8.707L10.586,12,7.293,15.293a1,1,0,1,0,1.414,1.414L12,13.414l3.293,3.293a1,1,0,0,0,1.414-1.414Z"/></svg>`;
+    button.style.display = 'none';
+    button.onclick = removePokemon;
+  
+    const div = document.createElement('div');
+    div.className = 'sprite-container';
+
+    div.appendChild(img);
+    li.appendChild(div);
+    li.appendChild(button);
     slots.appendChild(li);
   }
 }
@@ -253,27 +264,54 @@ function addPokemon (button) {
 
   if (slot) {
     slot.dataset.empty = 'false';
-    const img = slot.querySelector('img');
+    const div = slot.querySelector('div');
+    const img = div.querySelector('img');
     const pokemonSprite = button.querySelector('#pokemonSprite');
     console.log(pokemonSprite);
     img.src = pokemonSprite.src;
 
-    slot.style.borderRadius = '50%';
-    slot.style.overflow = 'hidden';
-    slot.style.borderStyle = 'solid';
-    slot.style.borderWidth = '2px';
-    slot.style.borderColor = 'black';
-    slot.style.width = '90px';
-    slot.style.height = '90px';
+    const removeBtn = slot.querySelector('button');
+    console.log(removeBtn);
+    removeBtn.style.display = 'block';
+    
+
+    div.style.borderRadius = '50%';
+    div.style.overflow = 'hidden';
+    div.style.borderStyle = 'solid';
+    div.style.borderWidth = '2px';
+    div.style.borderColor = 'black';
+    div.style.width = '110px';
+    div.style.height = '110px';
 
     const color = colorType(button.querySelector('#type1').innerText);
-    slot.style.backgroundColor = color;
+    div.style.backgroundColor = color;
     console.log(color);
   }
 
 
 }
 
+function removePokemon (event) {
+
+  const li = event.currentTarget.parentNode;
+  li.dataset.empty = 'true';
+ 
+  const btn = li.querySelector('button');
+  const div = li.querySelector('div');
+  const img = li.querySelector('img');
+  btn.style.display = 'none';
+    
+
+    div.style.borderRadius = '0';
+    div.style.overflow = 'show';
+    div.style.borderStyle = 'none';
+    div.style.width = '120px';
+    div.style.height = '120px';
+    div.style.backgroundColor = 'white';
+
+    img.src = 'https://cdn0.iconfinder.com/data/icons/pokemon-go-vol-2/135/_Pokeball-128.png'
+
+}
 
 
 
