@@ -1,5 +1,20 @@
 body {
     background-color: white;
+    background-image: url('https://wallpapercave.com/wp/k1ExYwj.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    margin: 0;
+}
+
+
+#title {
+    display: flex;
+    justify-content: center;
+}
+
+#imgTitle {
+    height: 30vh;
 }
 
 ul {
@@ -93,13 +108,14 @@ svg {
     justify-content: center;
     border-radius: 30px;
     cursor: pointer;
+    border: none;
     border-color: dimgray;
-    background-color: #fff;
+    background-color: transparent;
 }
 
 
 #pokemonSprite {
-    background-color: #fdfafa;
+    
     border-radius: 24px;
     width: 25vh;
     margin: 0.7rem;

@@ -228,7 +228,8 @@ async function searchByName () {
     container.innerHTML = '';
 
     for (const pokemon of searchedPokemons) {
-      const pokemonResponse = await fetch(pokemon.url)
+      const pokemonResponse = await fetch(pokemon.url);
+      let counter = 1;
 
       if (!pokemonResponse.ok) {
         throw new Error ('Não foi possível carregar os dados do pokemon');
@@ -236,9 +237,58 @@ async function searchByName () {
 
       const pokemonData = await pokemonResponse.json();
 
+      const button = document.createElement('button');
+      button.className = 'pokemon-card';
+      button.id = "btn"+counter;
+      ++counter;
+      button.onclick = function () {
+        return addPokemon(button);
+      };
+
+     
+
       const pokemonSprite = document.createElement('img');
       pokemonSprite.src = pokemonData.sprites.front_default;
-      container.appendChild(pokemonSprite);
+      pokemonSprite.id = 'pokemonSprite';
+
+      const id = document.createElement('p');
+      id.innerText = '#' + pokemonData.id;
+
+      const pokemonName = document.createElement('h2');
+      pokemonName.innerText = pokemonData.forms[0].name;
+
+      const pokemonType1 = pokemonData.types[0].type.name.toUpperCase();
+      const type1 = document.createElement('p');
+      type1.id = 'type1';
+      type1.innerText = pokemonType1;
+      type1.style.backgroundColor = colorType (pokemonType1);
+      const type2 = document.createElement('p');
+
+      if (pokemonData.types.length > 1) {
+        const pokemonType2 = pokemonData.types[1].type.name.toUpperCase();
+        type2.innerText = pokemonType2;
+        type2.style.backgroundColor = colorType (pokemonType2);
+        type2.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.1)';
+
+      }
+        
+    else {
+      type2.innerText = '';
+      type2.style.backgroundColor = 'transparent';
+      type2.style.boxShadow = 'none';
+    }
+
+    const div = document.createElement('div');
+    div.appendChild(type1);
+    div.appendChild(type2);
+
+    button.appendChild(pokemonSprite);
+    button.appendChild(id);
+    button.appendChild(pokemonName);
+    button.appendChild(div);
+    container.appendChild(button);
+    console.log(container);
+    
 
     }
    
@@ -307,7 +357,7 @@ function removePokemon (event) {
     div.style.borderStyle = 'none';
     div.style.width = '120px';
     div.style.height = '120px';
-    div.style.backgroundColor = 'white';
+    div.style.backgroundColor = 'transparent';
 
     img.src = 'https://cdn0.iconfinder.com/data/icons/pokemon-go-vol-2/135/_Pokeball-128.png'
 
