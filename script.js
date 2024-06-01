@@ -46,8 +46,13 @@ function buildPage () {
     id.innerText = '#' + pokemon.id;
 
     const pokemonName = pokemon.forms[0].name;
+    
     const name = document.getElementById('pokemonName');
     name.innerText = pokemonName;
+
+    const btn = name.parentNode;
+    
+
 
     const pokemonType1 = pokemon.types[0].type.name.toUpperCase();
     const type1 = document.getElementById('type1');
@@ -192,6 +197,7 @@ function showAll (button) {
         addBtn.onclick = function () {
           return addPokemon(addBtn);
         };
+      
 
         const pokemonSprite = document.createElement('img');
         pokemonSprite.src = pokemonData.sprites.front_default;
@@ -315,6 +321,8 @@ async function searchByName () {
 
       const pokemonName = document.createElement('h2');
       pokemonName.innerText = pokemonData.forms[0].name;
+     
+
 
       const pokemonType1 = pokemonData.types[0].type.name.toUpperCase();
       const type1 = document.createElement('p');
@@ -401,6 +409,8 @@ function addPokemon (button) {
       input.value = button.querySelector('h2').innerText;
     }
 
+    alert(button.querySelector('h2').innerText+' foi adicionado ao time');
+
 
     
     const div = slot.querySelector('div');
@@ -429,6 +439,10 @@ function addPokemon (button) {
     const color = colorType(button.querySelector('.type1').innerText);
     div.style.backgroundColor = color;
     
+  }
+
+  else {
+    alert("O time está cheio");
   }
 
 
@@ -483,6 +497,30 @@ function removePokemon (event) {
 
 }
 
+
+function saveTeam () {
+  const slots = document.querySelectorAll('#team-slots li');
+  const allEmpty = Array.from(slots).every(slot => slot.dataset.empty === 'true');
+  document.querySelector('form').addEventListener('submit', function(event) {
+    const fieldName = document.getElementById('teamName').value;
+
+   
+    if (fieldName.trim() === '') {
+      
+        event.preventDefault();
+        alert('Por favor, preencha o nome do time.');
+    }
+
+    else if (allEmpty) {
+      event.preventDefault();
+      alert("Adicione um pokémon ao time");
+    }
+    
+    else {
+        alert("Time salvo com sucesso!");
+    }
+  });
+}
 
 
 

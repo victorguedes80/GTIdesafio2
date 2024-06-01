@@ -13,11 +13,14 @@
     <section id="my-team">
         <h1>Meu Time</h1> <br>
         <form id="save-team" method="get" action="team.html">
+
             <input id="poke1" name="pokemon1" class="pokemons" type="text"><input id="poke2" name="pokemon2" class="pokemons" type="text">
             <input id="poke3" name="pokemon3"class="pokemons" type="text"><input id="poke4" name="pokemon4" class="pokemons" type="text">
             <input id="poke5" name="pokemon5" class="pokemons" type="text"><input id="poke6" name="pokemon6" class="pokemons" type="text">
-            <input id="teamName" type="text" name="nome" placeholder="Nome do time">
-            <button class="choice-btn">Salvar</button>
+
+
+            <input id="teamName" type="text" name="teamName" placeholder="Nome do time">
+            <button class="choice-btn" onclick="saveTeam ()">Salvar</button>
         </form>
         <br><br>
        <ul id="team-slots"></ul>
