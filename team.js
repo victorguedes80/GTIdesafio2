@@ -2,6 +2,8 @@ const url = window.location.href;
 const urlObj = new URL(url);
 const params = urlObj.searchParams;
 
+const section = document.getElementById('team');
+section.innerHTML = '';
 
 let pokemons = [];
 for (let i = 0; i < 6; ++i) {

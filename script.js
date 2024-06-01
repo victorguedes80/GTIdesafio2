@@ -426,6 +426,8 @@ function addPokemon (button) {
     const removeBtn = slot.querySelector('button');
     console.log(removeBtn);
     removeBtn.style.display = 'block';
+    removeBtn.style.fill = "red";
+    removeBtn.style.background = "none";
     
     
 
