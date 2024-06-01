@@ -1,10 +1,11 @@
 body {
-    background-color: white;
+    background-color: #fafafa;
    
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
-    margin: 0;
+    margin: 5rem;
+    
 }
 
 
@@ -174,16 +175,14 @@ svg {
     border-radius: 30px;
     cursor: pointer;
     border: none;
-    border-color: dimgray;
     background-color: transparent;
     margin: 1rem;
 }
 
-
 #by-id img {
     
     border-radius: 24px;
-    width: 25vh;
+    width: 20vh;
     margin: 0.7rem;
 }
 
@@ -236,3 +235,17 @@ svg {
 }
 
 .pokemons {display: none;}
+
+#titleTeam {
+   left: -2%;
+}
+#team {
+    display: flex;
+    justify-content: start;
+    align-content: center;
+    flex-wrap: nowrap;
+}
+
+#team-body img{
+    width: 20vh;
+}

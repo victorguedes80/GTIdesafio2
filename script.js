@@ -1,4 +1,3 @@
-/*fetch ('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151')*/
 let pokeid = 1;
 buildTeamSlots ();
 buildPage ();
@@ -17,7 +16,9 @@ function buildTeamSlots () {
     button.className = 'removeButton';
     button.innerHTML = `<?xml version="1.0" ?><svg id="Icons" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style>.cls-1{fill:url(#linear-gradient);}.cls-2{fill:#ff7391;}</style><linearGradient gradientUnits="userSpaceOnUse" id="linear-gradient" x1="12" x2="12" y1="0.787" y2="23.088"><stop offset="0" stop-color="#ff4867"/><stop offset="1" stop-color="#e50031"/></linearGradient></defs><circle class="cls-1" cx="12" cy="12" r="11"/><path class="cls-2" d="M13.414,12l3.293-3.293a1,1,0,1,0-1.414-1.414L12,10.586,8.707,7.293A1,1,0,1,0,7.293,8.707L10.586,12,7.293,15.293a1,1,0,1,0,1.414,1.414L12,13.414l3.293,3.293a1,1,0,0,0,1.414-1.414Z"/></svg>`;
     button.style.display = 'none';
-    button.onclick = removePokemon;
+    button.onclick = function () {
+      removePokemon(i+1);
+    };
   
     const div = document.createElement('div');
     div.className = 'sprite-container';
@@ -51,8 +52,7 @@ function buildPage () {
     name.innerText = pokemonName;
 
     const btn = name.parentNode;
-    
-
+   
 
     const pokemonType1 = pokemon.types[0].type.name.toUpperCase();
     const type1 = document.getElementById('type1');
@@ -187,45 +187,50 @@ function showAll (button) {
   .then (response => response.json ())
   .then (data => {
     const pokemons = data.results;
-    pokemons.forEach(pokemon => {
-      fetch (pokemon.url)
-      .then (response => response.json ())
-      .then (pokemonData => {
-        const addBtn = document.createElement('button');
-        addBtn.className = 'pokemon-card';
-        
-        addBtn.onclick = function () {
-          return addPokemon(addBtn);
-        };
+    const sortPokemons = pokemons.map(pokemon => fetch(pokemon.url).then(response => response.json()));
+    return Promise.all(sortPokemons);
+  })
+  .then(pokemonData => {
+    pokemonData.sort((a, b) => a.id - b.id);
+
+    pokemonData.forEach(pokeData => {
+    
+      
+      const addBtn = document.createElement('button');
+      addBtn.className = 'pokemon-card';
+      
+      addBtn.onclick = function () {
+        return addPokemon(addBtn);
+      };
+    
+
+      const pokemonSprite = document.createElement('img');
+      pokemonSprite.src = pokeData.sprites.front_default;
+      pokemonSprite.id = 'pokemonSprite';
       
 
-        const pokemonSprite = document.createElement('img');
-        pokemonSprite.src = pokemonData.sprites.front_default;
-        pokemonSprite.id = 'pokemonSprite';
+      const id = document.createElement('p');
+      id.innerText = '#' + pokeData.id;
+
+      const pokemonName = document.createElement('h2');
+      pokemonName.innerText = pokeData.forms[0].name;
+
+      const pokemonType1 = pokeData.types[0].type.name.toUpperCase();
+      const type1 = document.createElement('p');
+      type1.className = 'type1';
+      type1.innerText = pokemonType1;
+      type1.style.backgroundColor = colorType (pokemonType1);
+      const type2 = document.createElement('p');
+      type2.className = 'type2';
+
+      if (pokeData.types.length > 1) {
+        const pokemonType2 = pokeData.types[1].type.name.toUpperCase();
+        type2.innerText = pokemonType2;
+        type2.style.backgroundColor = colorType (pokemonType2);
+        type2.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.1)';
+
+      }
         
-
-        const id = document.createElement('p');
-        id.innerText = '#' + pokemonData.id;
-
-        const pokemonName = document.createElement('h2');
-        pokemonName.innerText = pokemonData.forms[0].name;
-
-        const pokemonType1 = pokemonData.types[0].type.name.toUpperCase();
-        const type1 = document.createElement('p');
-        type1.className = 'type1';
-        type1.innerText = pokemonType1;
-        type1.style.backgroundColor = colorType (pokemonType1);
-        const type2 = document.createElement('p');
-        type2.className = 'type2';
-
-        if (pokemonData.types.length > 1) {
-          const pokemonType2 = pokemonData.types[1].type.name.toUpperCase();
-          type2.innerText = pokemonType2;
-          type2.style.backgroundColor = colorType (pokemonType2);
-          type2.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.1)';
-
-        }
-          
       else {
         type2.innerText = '';
         type2.style.backgroundColor = 'transparent';
@@ -243,11 +248,10 @@ function showAll (button) {
       addBtn.appendChild(div);
       section.appendChild(addBtn);
       console.log(section);
-  
-    })
-    .catch(err => console.error(err))
+
     });
   })
+ 
   .catch(err => console.error(err))
 }
 
@@ -448,28 +452,28 @@ function addPokemon (button) {
 
 }
 
-function removePokemon (event) {
+function removePokemon (slotId) {
+  const slot = document.getElementById('pokemon' + slotId);
+  console.log(slot);
+  slot.dataset.empty = 'true';
 
-  const li = event.currentTarget.parentNode;
-  li.dataset.empty = 'true';
-
-  if (li.id==='pokemon1') {
+  if (slot.id==='pokemon1') {
     const input = document.getElementById('poke1');
     input.value = '';
   }
-  else if (li.id==='pokemon2') {
+  else if (slot.id==='pokemon2') {
     const input = document.getElementById('poke2');
     input.value = '';
   }
-  else if (li.id==='pokemon3') {
+  else if (slot.id==='pokemon3') {
     const input = document.getElementById('poke3');
     input.value = '';
   }
-  else if (li.id==='pokemon4') {
+  else if (slot.id==='pokemon4') {
     const input = document.getElementById('poke4');
     input.value = '';
   }
-  else if (li.id==='pokemon5') {
+  else if (slot.id==='pokemon5') {
     const input = document.getElementById('poke5');
     input.value = '';
   }
@@ -479,9 +483,9 @@ function removePokemon (event) {
   }
 
  
-  const btn = li.querySelector('button');
-  const div = li.querySelector('div');
-  const img = li.querySelector('img');
+  const btn = slot.querySelector('button');
+  const div = slot.querySelector('div');
+  const img = slot.querySelector('img');
   btn.style.display = 'none';
     
     img.style.width = '120px';
