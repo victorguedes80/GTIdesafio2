@@ -1,6 +1,6 @@
 body {
     background-color: white;
-    background-image: url('https://wallpapercave.com/wp/k1ExYwj.jpg');
+   
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
@@ -11,10 +11,39 @@ body {
 #title {
     display: flex;
     justify-content: center;
+    margin: 3rem;
 }
 
 #imgTitle {
-    height: 30vh;
+    height: 20vh;
+}
+
+
+#my-team {
+    margin: 3rem;
+}
+h1 {
+    position: relative;
+    text-align: center;
+    top: -2.5rem;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+    font-size: 3vh;
+    color: rgb(7, 99, 160);
+    margin: 1.5rem;
+
+}
+
+h1:before, h1:after {
+    content: "";
+    display: inline-block;
+    width: 5%;
+    margin: 0 .5em 0 -55%;
+    vertical-align: middle;
+    border-bottom: 2px solid;
+  }
+
+h1:after {
+    margin: 0 -55% 0 .5em;
 }
 
 ul {
@@ -22,6 +51,8 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 3rem;
+    margin-bottom: 1.5rem;
 }
 
 ul li {
@@ -48,6 +79,7 @@ ul li img {
     height: 120px;
     margin: 0;
     padding: 0;
+    
 }
 
 
@@ -69,6 +101,38 @@ ul li img {
 
 #showAll {
     display: none;
+    margin: 4rem;
+}
+
+
+#buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.choice-btn {
+    margin: 2rem;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+    background-color: rgb(7, 99, 160);
+    border-radius: 4px;
+    border:  1px solid;
+    border-color: #272727;
+    cursor: pointer;
+    color: #fff;
+}
+
+#inputName {
+    width: 10vw;
+    height: 1rem;
+    border-radius: 4px;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+}
+
+.choice-btn:disabled {
+    opacity: 0.6;
 }
 
 #by-id {
@@ -98,6 +162,7 @@ ul li img {
 svg {
     width: 50px;
     height: 50px;
+    fill: rgb(7, 99, 160);
 }
 
 .pokemon-card {
@@ -111,10 +176,11 @@ svg {
     border: none;
     border-color: dimgray;
     background-color: transparent;
+    margin: 1rem;
 }
 
 
-#pokemonSprite {
+#by-id img {
     
     border-radius: 24px;
     width: 25vh;
@@ -132,12 +198,12 @@ svg {
    font-family: 'Arial Rounded MT Bold', sans-serif;
 }
 
-#types {
+.types {
     display: flex;
     justify-content: center;
 }
 
-#types p {
+.types p {
     padding: 0.3rem 1rem;
     margin-left: 0.25rem;
     margin-right: 0.25rem;
@@ -151,3 +217,22 @@ svg {
     
 }
 
+#seachedPokemons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#save-team {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#teamName {
+    border-radius: 4px;
+}
+
+.pokemons {display: none;}

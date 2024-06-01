@@ -8,10 +8,21 @@
 </head>
 <body>
     <section id="title"><img id="imgTitle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png" alt=""></section>
-    <br><br><br>
+    <br><br>
+    <br>
     <section id="my-team">
+        <h1>Meu Time</h1> <br>
+        <form id="save-team" method="get" action="team.html">
+            <input id="poke1" name="pokemon1" class="pokemons" type="text"><input id="poke2" name="pokemon2" class="pokemons" type="text">
+            <input id="poke3" name="pokemon3"class="pokemons" type="text"><input id="poke4" name="pokemon4" class="pokemons" type="text">
+            <input id="poke5" name="pokemon5" class="pokemons" type="text"><input id="poke6" name="pokemon6" class="pokemons" type="text">
+            <input id="teamName" type="text" name="nome" placeholder="Nome do time">
+            <button class="choice-btn">Salvar</button>
+        </form>
+        <br><br>
        <ul id="team-slots"></ul>
     </section>
+
     <br><br>
     
     <section id="buttons">
@@ -20,7 +31,7 @@
         <button disabled class="choice-btn" id="byIdbtn" onclick="idPoke (this)">Pokémon por id</button>
     </section>
 
-    <br><br>
+    <br><br><h1>Pokémons</h1><br>
 
     <section id="by-id">
         <button onclick="prevPokemon ()" class="svg-btn" id="leftbtn"><?xml version="1.0" ?><svg id="Layer_1_1_" style="enable-background:new 0 0 16 16;" version="1.1" viewBox="0 0 16 16" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M8,0C3.582,0,0,3.582,0,8s3.582,8,8,8s8-3.582,8-8S12.418,0,8,0z M10.354,12.646l-0.707,0.707L4.293,8l5.354-5.354  l0.707,0.707L5.707,8L10.354,12.646z"/></svg></button>
@@ -28,9 +39,9 @@
             <img src="" alt="Pokemon Sprite" id="pokemonSprite" style="display: none;">
             <p id="id"></p>
             <h2 id="pokemonName"></h2>
-            <div id="types">
-                <p id="type1"></p>
-                <p id="type2"></p>
+            <div class="types">
+                <p class="type1" id="type1"></p>
+                <p class="type2" id="type2"></p>
             </div>
         </button>
         <button onclick="nextPokemon ()" class="svg-btn" id="rightbtn"><?xml version="1.0" ?><svg id="Layer_1_1_" style="enable-background:new 0 0 16 16;" version="1.1" viewBox="0 0 16 16" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M8,0C3.582,0,0,3.582,0,8s3.582,8,8,8s8-3.582,8-8S12.418,0,8,0z M6.354,13.354l-0.707-0.707L10.293,8L5.646,3.354  l0.707-0.707L11.707,8L6.354,13.354z"/></svg></button>
@@ -38,8 +49,12 @@
     </section>
 
     <section id="searchPoke">
-        <input id="inputName" type="text" placeholder="Digite um nome de pokemon">
-        <button onclick="searchByName()">Procurar Pokemon</button>
+       
+        <div>
+            <input id="inputName" type="text" placeholder="Digite um nome de pokemon">
+        
+            <button class="choice-btn" onclick="searchByName()">Procurar</button>
+        </div>
         <div id="searchedPokemons"></div>
     </section>
    <section id="showAll"></section> 

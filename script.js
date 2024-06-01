@@ -27,6 +27,8 @@ function buildTeamSlots () {
     li.appendChild(button);
     slots.appendChild(li);
   }
+  console.log(slots);
+
 }
 
 
@@ -172,7 +174,9 @@ function showAll (button) {
   document.getElementById('searchPoke').style.display = "none";
   const section = document.getElementById('showAll');
   section.innerHTML = '';
-  section.style.display = "block";
+  section.style.display = "flex";
+  section.style.justifyContent = 'space-between';
+  section.style.flexWrap = 'wrap';
 
   fetch ('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151')
   .then (response => response.json ())
@@ -182,11 +186,60 @@ function showAll (button) {
       fetch (pokemon.url)
       .then (response => response.json ())
       .then (pokemonData => {
+        const addBtn = document.createElement('button');
+        addBtn.className = 'pokemon-card';
+        
+        addBtn.onclick = function () {
+          return addPokemon(addBtn);
+        };
+
         const pokemonSprite = document.createElement('img');
         pokemonSprite.src = pokemonData.sprites.front_default;
-        section.appendChild(pokemonSprite);
-      })
-      .catch(err => console.error(err))
+        pokemonSprite.id = 'pokemonSprite';
+        
+
+        const id = document.createElement('p');
+        id.innerText = '#' + pokemonData.id;
+
+        const pokemonName = document.createElement('h2');
+        pokemonName.innerText = pokemonData.forms[0].name;
+
+        const pokemonType1 = pokemonData.types[0].type.name.toUpperCase();
+        const type1 = document.createElement('p');
+        type1.className = 'type1';
+        type1.innerText = pokemonType1;
+        type1.style.backgroundColor = colorType (pokemonType1);
+        const type2 = document.createElement('p');
+        type2.className = 'type2';
+
+        if (pokemonData.types.length > 1) {
+          const pokemonType2 = pokemonData.types[1].type.name.toUpperCase();
+          type2.innerText = pokemonType2;
+          type2.style.backgroundColor = colorType (pokemonType2);
+          type2.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.1)';
+
+        }
+          
+      else {
+        type2.innerText = '';
+        type2.style.backgroundColor = 'transparent';
+        type2.style.boxShadow = 'none';
+      }
+
+      const div = document.createElement('div');
+      div.className = 'types';
+      div.appendChild(type1);
+      div.appendChild(type2);
+
+      addBtn.appendChild(pokemonSprite);
+      addBtn.appendChild(id);
+      addBtn.appendChild(pokemonName);
+      addBtn.appendChild(div);
+      section.appendChild(addBtn);
+      console.log(section);
+  
+    })
+    .catch(err => console.error(err))
     });
   })
   .catch(err => console.error(err))
@@ -204,7 +257,10 @@ function searchBtn (button) {
   document.getElementById('by-id').style.display = "none";
   document.getElementById('showAll').style.display = "none";
   const section = document.getElementById('searchPoke')
-  section.style.display = "block";
+  section.style.display = "flex";
+  section.style.flexDirection = "column";
+  section.style.justifyContent = 'center';
+  section.style.alignItems = 'center';
 
 }
 
@@ -226,6 +282,9 @@ async function searchByName () {
     const searchedPokemons = pokemons.filter(pokemon => pokemon.name.includes(pokemonName));
     const container = document.getElementById('searchedPokemons');
     container.innerHTML = '';
+    container.style.display = "flex";
+    container.style.justifyContent = 'space-between';
+    container.style.flexWrap = 'wrap';
 
     for (const pokemon of searchedPokemons) {
       const pokemonResponse = await fetch(pokemon.url);
@@ -259,10 +318,11 @@ async function searchByName () {
 
       const pokemonType1 = pokemonData.types[0].type.name.toUpperCase();
       const type1 = document.createElement('p');
-      type1.id = 'type1';
+      type1.className= 'type1';
       type1.innerText = pokemonType1;
       type1.style.backgroundColor = colorType (pokemonType1);
       const type2 = document.createElement('p');
+      type2.className= 'type2';
 
       if (pokemonData.types.length > 1) {
         const pokemonType2 = pokemonData.types[1].type.name.toUpperCase();
@@ -279,6 +339,7 @@ async function searchByName () {
     }
 
     const div = document.createElement('div');
+    div.className = 'types';
     div.appendChild(type1);
     div.appendChild(type2);
 
@@ -314,6 +375,34 @@ function addPokemon (button) {
 
   if (slot) {
     slot.dataset.empty = 'false';
+
+    if (slot.id==='pokemon1') {
+      const input = document.getElementById('poke1');
+      input.value = button.querySelector('h2').innerText;
+    }
+    else if (slot.id==='pokemon2') {
+      const input = document.getElementById('poke2');
+      input.value = button.querySelector('h2').innerText;
+    }
+    else if (slot.id==='pokemon3') {
+      const input = document.getElementById('poke3');
+      input.value = button.querySelector('h2').innerText;
+    }
+    else if (slot.id==='pokemon4') {
+      const input = document.getElementById('poke4');
+      input.value = button.querySelector('h2').innerText;
+    }
+    else if (slot.id==='pokemon5') {
+      const input = document.getElementById('poke5');
+      input.value = button.querySelector('h2').innerText;
+    }
+    else {
+      const input = document.getElementById('poke6');
+      input.value = button.querySelector('h2').innerText;
+    }
+
+
+    
     const div = slot.querySelector('div');
     const img = div.querySelector('img');
     const pokemonSprite = button.querySelector('#pokemonSprite');
@@ -324,7 +413,11 @@ function addPokemon (button) {
     console.log(removeBtn);
     removeBtn.style.display = 'block';
     
+    
 
+    div.style.display = 'flex';
+    div.style.justifyContent = "center";
+    div.style.alignItems = "center";
     div.style.borderRadius = '50%';
     div.style.overflow = 'hidden';
     div.style.borderStyle = 'solid';
@@ -333,9 +426,9 @@ function addPokemon (button) {
     div.style.width = '110px';
     div.style.height = '110px';
 
-    const color = colorType(button.querySelector('#type1').innerText);
+    const color = colorType(button.querySelector('.type1').innerText);
     div.style.backgroundColor = color;
-    console.log(color);
+    
   }
 
 
@@ -345,13 +438,40 @@ function removePokemon (event) {
 
   const li = event.currentTarget.parentNode;
   li.dataset.empty = 'true';
+
+  if (li.id==='pokemon1') {
+    const input = document.getElementById('poke1');
+    input.value = '';
+  }
+  else if (li.id==='pokemon2') {
+    const input = document.getElementById('poke2');
+    input.value = '';
+  }
+  else if (li.id==='pokemon3') {
+    const input = document.getElementById('poke3');
+    input.value = '';
+  }
+  else if (li.id==='pokemon4') {
+    const input = document.getElementById('poke4');
+    input.value = '';
+  }
+  else if (li.id==='pokemon5') {
+    const input = document.getElementById('poke5');
+    input.value = '';
+  }
+  else {
+    const input = document.getElementById('poke6');
+    input.value = '';
+  }
+
  
   const btn = li.querySelector('button');
   const div = li.querySelector('div');
   const img = li.querySelector('img');
   btn.style.display = 'none';
     
-
+    img.style.width = '120px';
+    img.style.height = '120px';
     div.style.borderRadius = '0';
     div.style.overflow = 'show';
     div.style.borderStyle = 'none';
